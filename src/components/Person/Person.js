@@ -1,21 +1,40 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
 import Profile from './Profile/Profile';
 import Information from './Information/Information';
-import userData from '../../userData';
+import userData from '../../userData/users';
+import { useEffect, useState } from 'react';
+import './Person.css';
 
 
-const Person = () => {
+let Person = () => {
 
-    const personData = userData;
-    console.log(personData);
+    let personData = userData;
+    // console.log(personData);
+    const [persons, setPersons] = useState([]);
+    const [friendsAdded, setFriendsAdded] = useState([]);
+
+    useEffect(() =>{
+        setPersons(personData);
+    }, []); 
+
+    const handleAddFriend = (persons) => {
+        const newFriend = [...friendsAdded, persons]; 
+        setFriendsAdded(newFriend); 
+    }
 
     return (
         <div className="person-container">
-            <div className="profile">
-             <Profile></Profile>
+            <div className="profile-container">
+             
+                 {
+                     persons.map(person =><Profile 
+                        handleAddFriend={handleAddFriend}
+                        person={person}>
+                        </Profile>)
+                 }
             </div>
-            <div className="information">
-             <Information></Information>
+            <div className="information-container">
+             <Information information={friendsAdded}></Information>
             </div>
         </div>
     );

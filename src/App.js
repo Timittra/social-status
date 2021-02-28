@@ -5,7 +5,7 @@ import Person from './components/Person/Person';
 function App() {
   return (
     <div className="App">
-      <Person>Hello:</Person>
+      <Person></Person>
     </div>
   );
 }
